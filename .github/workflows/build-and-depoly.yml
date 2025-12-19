@@ -1,0 +1,55 @@
+name: CI/CD RealWorld Backend
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPO: 040443383169.dkr.ecr.us-east-1.amazonaws.com/realworld-backend
+  K8S_NAMESPACE: realworld
+  HELM_RELEASE: realworld-backend
+  HELM_CHART_PATH: ./realworld-backend
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Configure AWS credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t $ECR_REPO:latest ./backend
+
+      # Login to ECR
+      - name: Login to ECR
+        run: |
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
+
+      # Push Docker image to ECR
+      - name: Push to ECR
+        run: |
+          docker push $ECR_REPO:latest
+
+      # Update kubeconfig
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --name realworld-staging --region $AWS_REGION
+
+      # Deploy via Helm
+      - name: Helm upgrade/install
+        run: |
+          helm upgrade --install $HELM_RELEASE $HELM_CHART_PATH -n $K8S_NAMESPACE --create-namespace
