@@ -1,5 +1,5 @@
 name: CI/CD RealWorld Backend
-
+runs-on: self-hosted
 on:
   push:
     branches:
