@@ -29,10 +29,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      # Build npx
+      - name: Build backend
+        run: npx nx build api
+
       # Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t $ECR_REPO:latest ./backend
+          docker build -t $ECR_REPO:latest .
 
       # Login to ECR
       - name: Login to ECR
