@@ -35,11 +35,14 @@ jobs:
       
       - name: Build backend
         run: npx nx build api
+      # Tag
+      - name: Set image tag
+        run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       # Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t $ECR_REPO:latest .
+          docker build -t $ECR_REPO:$IMAGE_TAG .
 
       # Login to ECR
       - name: Login to ECR
@@ -49,7 +52,7 @@ jobs:
       # Push Docker image to ECR
       - name: Push to ECR
         run: |
-          docker push $ECR_REPO:latest
+          docker push $ECR_REPO:$IMAGE_TAG
 
       # Update kubeconfig
       - name: Update kubeconfig
