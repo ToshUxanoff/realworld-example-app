@@ -1,0 +1,22 @@
+replicaCount: 2
+
+image:
+  repository: 040443383169.dkr.ecr.us-east-1.amazonaws.com/realworld-backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 3000
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.className: alb
+  path: /
+  hosts:
+    - host: my-realworld.example.com
+      paths:
+        - /
+

@@ -9,7 +9,7 @@ env:
   AWS_REGION: us-east-1
   ECR_REPO: 040443383169.dkr.ecr.us-east-1.amazonaws.com/realworld-backend
   K8S_NAMESPACE: realworld
-  HELM_RELEASE: realworld-backend
+  HELM_RELEASE: helm
   HELM_CHART_PATH: ./realworld-backend
 
 jobs:
@@ -58,8 +58,13 @@ jobs:
       - name: Update kubeconfig
         run: |
           aws eks update-kubeconfig --name realworld-staging --region $AWS_REGION
+      
+      # Debug
+      - name: Test
+        run: |
+          kubectl get nodes
 
       # Deploy via Helm
       - name: Helm upgrade/install
         run: |
-          helm upgrade --install $HELM_RELEASE $HELM_CHART_PATH -n $K8S_NAMESPACE --create-namespace
+          helm upgrade --install $HELM_RELEASE $HELM_CHART_PATH -n $K8S_NAMESPACE --create-namespace --set-string image.tag="$IMAGE_TAG"
