@@ -34,7 +34,7 @@ jobs:
         run: npm ci
       
       - name: Generate Prisma client
-        run: npx prisma generate --schema=apps/api/prisma/schema.prisma
+        run: npx prisma generate --schema=src/prisma/schema.prisma
 
       - name: Build backend
         run: npx nx build api
