@@ -19,4 +19,16 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.targetPort }}
-
+          env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: realworld-secrets
+                key: DATABASE_URL
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: realworld-secrets
+                key: JWT_SECRET
+          - name: NODE_ENV
+            value: "production"
