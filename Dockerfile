@@ -16,6 +16,7 @@ RUN addgroup --system api && \
 
 COPY dist/api api
 RUN chown -R api:api .
+RUN npm ci && npx prisma generate
 # You can remove this install step if you build with `--bundle` option.
 # The bundled output will include external dependencies.
 RUN npm --prefix api --omit=dev -f install
