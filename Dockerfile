@@ -14,11 +14,7 @@ WORKDIR /app
 RUN addgroup --system api && \
           adduser --system -G api api
 
-RUN npm install --omit=dev
-
 COPY dist/api api
-COPY src/prisma ./prisma
-RUN npx prisma generate
 RUN chown -R api:api .
 
 # You can remove this install step if you build with `--bundle` option.

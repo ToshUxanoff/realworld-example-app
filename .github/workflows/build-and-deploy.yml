@@ -34,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Build backend
-        run: npx nx build api
+        run: npx nx docker-build api
       # Tag
       - name: Set image tag
         run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
