@@ -45,7 +45,7 @@ COPY --from=builder /app/node_modules /app/node_modules
 ENV NODE_ENV=production
 
 # Port, на котором API слушает
-EXPOSE 3000
+EXPOSE 9000
 
 # Запускаем
 CMD ["node", "dist/api/main.js"]
