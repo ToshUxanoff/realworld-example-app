@@ -28,7 +28,7 @@ RUN npx nx build api --skip-nx-cache
 # =========================
 # Production stage
 # =========================
-FROM node:20-alpine AS runner
+FROM node:20-slim AS runner
 
 WORKDIR /app
 
