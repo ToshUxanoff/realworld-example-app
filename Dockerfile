@@ -17,11 +17,13 @@ RUN npm ci
 # Копируем весь код
 COPY . .
 
+
 # Генерируем Prisma client
 RUN npx prisma generate
 
 # Собираем проект (nx build)
-RUN npx nx build api
+RUN npx nx reset
+RUN npx nx build api --skip-nx-cache
 
 # =========================
 # Production stage
