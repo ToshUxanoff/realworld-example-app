@@ -14,11 +14,10 @@ WORKDIR /app
 RUN addgroup --system api && \
           adduser --system -G api api
 
-COPY api/package*.json ./
 RUN npm install --omit=dev
 
 COPY dist/api api
-COPY api/prisma ./prisma
+COPY src/prisma ./prisma
 RUN npx prisma generate
 RUN chown -R api:api .
 
