@@ -3,7 +3,7 @@
 # =========================
 # Build stage
 # =========================
-FROM node:20-slim AS builder
+FROM node:18-bullseye AS builder
 
 # Create app directory
 WORKDIR /app
@@ -28,7 +28,7 @@ RUN npx nx build api --skip-nx-cache
 # =========================
 # Production stage
 # =========================
-FROM node:20-slim AS runner
+FROM node:18-bullseye AS runner
 
 WORKDIR /app
 
