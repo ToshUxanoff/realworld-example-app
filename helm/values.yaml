@@ -17,7 +17,7 @@ ingress:
     alb.ingress.kubernetes.io/scheme: internet-facing 
   path: /
   hosts:
-    - host: my-realworld.example.com
+    - host: realworld-inc.link
       paths:
         - /
 
