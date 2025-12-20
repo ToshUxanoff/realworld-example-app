@@ -58,11 +58,6 @@ jobs:
       - name: Update kubeconfig
         run: |
           aws eks update-kubeconfig --name realworld-staging --region $AWS_REGION
-      
-      # Debug
-      - name: Test
-        run: |
-          kubectl get nodes
 
       # Deploy via Helm
       - name: Helm upgrade/install
