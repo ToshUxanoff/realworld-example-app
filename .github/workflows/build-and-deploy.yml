@@ -36,8 +36,8 @@ jobs:
       # Build Docker image
       - name: Build Docker image
         run: | 
-          npx nx docker-build api --tag $ECR_REPO:$IMAGE_TAG
-# docker build -t $ECR_REPO:$IMAGE_TAG .
+          docker build -t $ECR_REPO:$IMAGE_TAG .
+# npx nx docker-build api --tag $ECR_REPO:$IMAGE_TAG
 
       # Login to ECR
       - name: Login to ECR
