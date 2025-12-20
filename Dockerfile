@@ -15,6 +15,7 @@ RUN addgroup --system api && \
           adduser --system -G api api
 
 COPY dist/api api
+RUN npx prisma generate
 RUN chown -R api:api .
 
 # You can remove this install step if you build with `--bundle` option.
