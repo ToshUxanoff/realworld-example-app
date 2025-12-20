@@ -9,8 +9,8 @@ env:
   AWS_REGION: us-east-1
   ECR_REPO: 040443383169.dkr.ecr.us-east-1.amazonaws.com/realworld-backend
   K8S_NAMESPACE: realworld
-  HELM_RELEASE: helm
-  HELM_CHART_PATH: ./realworld-backend
+  HELM_RELEASE: realworld-backend
+  HELM_CHART_PATH: ./helm
 
 jobs:
   deploy:
