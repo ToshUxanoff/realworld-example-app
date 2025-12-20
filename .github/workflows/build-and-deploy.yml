@@ -33,16 +33,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build backend
-        run: npx nx docker-build api
       # Tag
       - name: Set image tag
         run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       # Build Docker image
       - name: Build Docker image
-        run: |
-          docker build -t $ECR_REPO:$IMAGE_TAG .
+        run: | 
+          npx nx docker-build api --tag $ECR_REPO:$IMAGE_TAG
+# docker build -t $ECR_REPO:$IMAGE_TAG .
 
       # Login to ECR
       - name: Login to ECR
