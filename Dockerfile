@@ -40,13 +40,12 @@ RUN npm ci --omit=dev
 # Копируем билд и Prisma client из builder
 COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/node_modules /app/node_modules
-COPY --from=builder /app/prisma /app/prisma
 
 # ENV
 ENV NODE_ENV=production
 
 # Port, на котором API слушает
-EXPOSE 3333
+EXPOSE 3000
 
 # Запускаем
 CMD ["node", "dist/api/main.js"]
